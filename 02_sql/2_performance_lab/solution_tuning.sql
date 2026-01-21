@@ -1,0 +1,30 @@
+/*
+RETO PARTE B: LABORATORIO DE PERFORMANCE
+Objetivo: Comparar CROSS JOIN vs INNER JOIN
+*/
+
+USE RetoSQL;
+GO
+
+SET NOCOUNT ON;
+SET STATISTICS IO ON;
+SET STATISTICS TIME ON;
+
+PRINT '>>> INICIO DEL BENCHMARK <<<';
+
+PRINT '--- CROSS JOIN (conteo) ---';
+SELECT COUNT(*) AS Filas_CrossJoin
+FROM dbo.Cliente c
+CROSS JOIN dbo.Producto p;
+
+PRINT '--- INNER JOIN (conteo) ---';
+SELECT COUNT(*) AS Filas_InnerJoin
+FROM dbo.Venta v
+INNER JOIN dbo.Cliente c ON v.ClienteID = c.ClienteID
+INNER JOIN dbo.Producto p ON v.ProductoID = p.ProductoID;
+
+PRINT '>>> FIN DEL BENCHMARK <<<';
+
+SET STATISTICS IO OFF;
+SET STATISTICS TIME OFF;
+GO
